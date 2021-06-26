@@ -4,13 +4,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-12">
-          <!-- {{message}} -->
-          <button @click="emitInit">emit init</button>
-          <p> {{ service}} </p>
+          <button @click="emitInit">Listar Drivers</button>
+          <p> {{ drivers}} </p>
         </div>
       </div>
     </div>
-    <!-- <p>{{message}}</p> -->
   </div>
 </template>
 
@@ -19,8 +17,7 @@ export default {
   name: "App",
   data() {
     return {
-      message: [],
-      service: {}
+      drivers: {}
     };
   },
   sockets: {
@@ -30,12 +27,12 @@ export default {
   },
   mounted() {
     //cuando se crea la vista se ejecuta lo de acá
-    this.sockets.subscribe("client:getDetailService", (data) => {
-      this.service = data; 
+    this.sockets.subscribe("admin:getAllDrivers", (data) => {
+      this.drivers = data; 
       if(!data) { this.emitInit() }
     });
     console.log("suscribe");
-    this.emitInit();
+    // this.emitInit();
   },
   beforeDestroy() {
     //cuando sale de la vista se ejecuta esta parte
@@ -44,12 +41,12 @@ export default {
   },
   methods: {
     emitInit() {
-      console.log("enviando el idServicio")
-      const idServicio = "60d54921c27b883ae499fc7d"
-      this.$socket.emit('client:detailService', idServicio)      
+      console.log("obteniendo infoDriver[] de Redis");
+      const idUser = "60b1e27d4a1fb73e3871d71a";
+      this.$socket.emit('admin:drivers', idUser);   
     }
   },
 };
-</script>t
+</script>
 
 <style></style>

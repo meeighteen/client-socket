@@ -112,39 +112,13 @@ export default {
       ];
       let pos = Math.floor(Math.random() * 4);
       this.$socket.emit("driver:service", data[pos]);
-      setInterval(this.emitSetLocation,5000)
+      let intervalLocation = setInterval(this.emitSetLocation,5000);
     },
     emitEndService(){
       //id -> finalizar el servicio del dia
-      const data = [
-        {
-          id:"60b51f77fee3753218aa0b06", 
-          coordinates:"-12.064100, -77.035800",
-          
-        },
-        {
-          id:"60b51f77fee3753218aa0b06", 
-          coordinates:"-12.064115, -77.035826",
-          
-        },
-        {
-          id:"60b51f77fee3753218aa0b06", 
-          coordinates:"-12.064114, -77.035811",          
-          
-        },
-        {
-          id:"60b51f77fee3753218aa0b06", 
-          coordinates:"-12.064225, -77.040826",
-          
-        },
-        {
-          id:"60b51f77fee3753218aa0b06", 
-          coordinates:"-12.064199, -77.035576",
-          
-        }
-      ];
-      let pos = Math.floor(Math.random() * 4);
-      this.$socket.emit("driver:end",data[pos]);
+      const IdDriver = "60b51f77fee3753218aa0b06";
+      this.$socket.emit("driver:end",IdDriver);
+
       this.service = {};
       this.location = {};
     }
